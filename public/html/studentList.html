@@ -1,0 +1,65 @@
+<!-- IMPORT MODULE DETAIL -->
+<!-- 
+
+	Module : 	studentList
+	
+	Links : 	studentEdit
+					/students/{id}
+.				
+	
+	Nesteds : 	
+				
+-->
+<!-- /IMPORT MODULE DETAIL -->
+<div ng-controller="studentListController">
+	
+	<h1>studentList</h1>
+	
+	<!-- SEARCH FORM -->
+	<div class="well">
+	    <form name="form_search" class="container-fluid">
+			<div class="row">
+				<div class="col-sm-3">
+					<label for="dob">Dob</label>
+				</div>
+				<div class="col-sm-9 form-group" >
+					<input type="date" ng-model="search.dob" class="form-control" name="dob" id="dob" >
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-3">
+					<label for="name">Name</label>
+				</div>
+				<div class="col-sm-9 form-group" >
+					<input type="text" ng-model="search.name" class="form-control" name="name" id="name" >
+				</div>
+			</div>
+		</form>
+	</div>
+	
+	<!-- TABLE -->
+	<table class="table table-condensed table-striped table-bordered table-hover">
+		<thead>
+			<tr>
+				<th>_id</th>
+				<th>dob</th>
+				<th>name</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in list | filter: {  dob:dateFilter(search.dob),  name:search.name,  }">
+				<td ng-bind="item._id" ng-link="/students/{{item._id}}"></td>
+				<td ng-bind="item.dob | date"></td>
+				<td ng-bind="item.name"></td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<div class="mb-20" ng-if="list.$resolved && (list | filter :{   dob:dateFilter(search.dob),  name:search.name,  }).length == 0">
+        <b>No result found</b>
+    </div>
+
+	<!-- BUTTON -->
+	<button class="btn btn-primary" ng-link="/students/new">New</button>
+	
+</div>

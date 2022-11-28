@@ -1,0 +1,75 @@
+<!-- IMPORT MODULE DETAIL -->
+<!-- 
+
+	Module : 	examList
+	
+	Links : 	examEdit
+					/exams/{id}
+.				
+	
+	Nesteds : 	
+				
+-->
+<!-- /IMPORT MODULE DETAIL -->
+<div ng-controller="examListController">
+	
+	<h1>examList</h1>
+	
+	<!-- SEARCH FORM -->
+	<div class="well">
+	    <form name="form_search" class="container-fluid">
+			<div class="row">
+				<div class="col-sm-3">
+					<label for="place">Place</label>
+				</div>
+				<div class="col-sm-9 form-group" >
+					<input type="text" ng-model="search.place" class="form-control" name="place" id="place" >
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-3">
+					<label for="score">Score</label>
+				</div>
+				<div class="col-sm-9 form-group" >
+					<input type="number" ng-model="search.score" class="form-control" name="score" id="score" >
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-3">
+					<label for="valid">Valid</label>
+				</div>
+				<div class="col-sm-9 form-group" >
+					<input type="checkbox" ng-model="search.valid" class="form-control" name="valid" id="valid" >
+				</div>
+			</div>
+		</form>
+	</div>
+	
+	<!-- TABLE -->
+	<table class="table table-condensed table-striped table-bordered table-hover">
+		<thead>
+			<tr>
+				<th>_id</th>
+				<th>place</th>
+				<th>score</th>
+				<th>valid</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in list | filter: {  place:search.place,  score:search.score,  valid:search.valid,  }">
+				<td ng-bind="item._id" ng-link="/exams/{{item._id}}"></td>
+				<td ng-bind="item.place"></td>
+				<td ng-bind="item.score"></td>
+				<td ng-bind="item.valid"></td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<div class="mb-20" ng-if="list.$resolved && (list | filter :{   place:search.place,  score:search.score,  valid:search.valid,  }).length == 0">
+        <b>No result found</b>
+    </div>
+
+	<!-- BUTTON -->
+	<button class="btn btn-primary" ng-link="/exams/new">New</button>
+	
+</div>
